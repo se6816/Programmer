@@ -1,0 +1,25 @@
+import java.util.HashMap;
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        HashMap<String, Integer> hash = new HashMap<String, Integer>();
+        String answer = "";
+        for(String v : participant){
+            if(hash.containsKey(v)) hash.put(v,hash.get(v)+1);
+            else hash.put(v,1);
+        }
+        for(String x : completion){
+            hash.put(x,hash.get(x)-1);
+        }
+        for(String y : participant){
+            if(hash.get(y)!=0){
+                answer=y;
+                break;
+            }
+        }
+        return answer;
+    }
+}
+******************************************************************
+일단 Map에 모든 참가자들을 대입한다. 중복이 존재하므로 있다면 +1처리한다.
+그리고 마라톤 완료한 선수들을 전부 제외하고
+결국 한명의 선수 이름만 1이므로 그 선수 이름을 리턴한다.
