@@ -1,0 +1,21 @@
+import java.util.Arrays;
+class Solution {
+    public String[] solution(String[] strings, int n) {
+        String[] answer = {};
+        answer=new String[strings.length];
+        String[] answer2=new String[strings.length];
+        for(int i=0; i<strings.length;i++){
+            answer2[i]=strings[i].substring(n,n+1)+strings[i];
+        }
+        Arrays.sort(answer2);
+        for(int i=0; i<strings.length;i++){
+            answer[i]=answer2[i].substring(1);
+        }
+        
+        return answer;
+    }
+}
+***********************************************************************
+일단 answer2에 string배열의 단어들과 그 단어들의 n번째 단어를 앞에 이어붙인다.
+그후 Arrays.sort로 정렬하고
+answer에 담아서 리턴한다.
