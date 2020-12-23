@@ -1,0 +1,31 @@
+class Solution {
+    public String solution(String s, int n) {
+        String answer = "";
+        for(int i=0;i<s.length();i++){
+            String v=s.substring(i,i+1);
+            char ch= v.charAt(0);
+            int result= ((char)ch);
+            if(65<=ch && 90>=ch){
+                result+=n;
+                if(result>90){
+                    result-=26;
+                }
+                 ch=(char)result;
+            }
+            else if(97<=ch && 122>=ch){
+                result+=n;
+                if(result>122){
+                    result-=26;
+                }
+                 ch=(char)result;
+            }
+            else{     
+            }
+            
+            answer=answer.concat(String.valueOf(ch));
+        }
+        
+        
+        return answer;
+    }
+}
