@@ -1,0 +1,24 @@
+class Solution {
+    public int[] solution(int[] arr) {
+        int[] answer={};
+        int top=0;
+        int small_value=1000;
+        if(arr.length==1){
+            answer=new int[1];
+            answer[0]=-1;
+            return answer;
+        }
+        for(int i=0;i< arr.length;i++){
+            if(arr[i]<small_value){
+                small_value=arr[i];
+            }
+        }
+         answer = new int[arr.length-1];
+        for(int i : arr){
+            if(i!=small_value){
+                answer[top++]=i;
+            }
+        }
+        return answer;
+    }
+}
