@@ -1,0 +1,15 @@
+import java.util.*;
+class Solution {
+    public long solution(long n) {
+        long answer = 0;
+        String[] string=Long.toString(n).split("");
+        String x="";
+        Arrays.sort(string,Collections.reverseOrder());
+        for(String v : string){
+            x= x.concat(v);
+        }
+        answer=Long.parseLong(x);
+        
+        return answer;
+    }
+}
