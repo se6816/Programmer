@@ -1,0 +1,58 @@
+import java.util.*;
+class Solution {
+    public String solution(int[] numbers, String hand) {
+        HashMap<Integer,Integer> hash = new HashMap<Integer,Integer>();
+        hash.put(1,1);hash.put(2,1);hash.put(3,1);
+        hash.put(4,2);hash.put(5,2);hash.put(6,2);
+        hash.put(7,3);hash.put(8,3);hash.put(9,3);
+        hash.put(10,4);hash.put(0,4);hash.put(12,4);
+        String answer = "";
+        int left=10;
+        int right=12;
+        for(int i : numbers){
+            if(i%3==1){                                     // 왼쪽 일경우 왼쪽 손가락
+                left=i;
+                answer= answer.concat("L");
+            }
+            else if(i%3==0 && i!=0){                       // 오른쪽일경우 오른쪽 손가락
+                right=i;
+                answer= answer.concat("R");
+            }
+            else{                                                // 가운데일경우
+                int L_len=Math.abs(hash.get(left)-hash.get(i));           // 왼쪽으로부터의 거리
+                int R_len=Math.abs(hash.get(right)-hash.get(i));           // 오른쪽으로부터의 거리
+                if(right!=0&& right%3!=2){                                  
+                    R_len++;
+                }
+                if(left!=0 && left%3!=2){
+                    L_len++;
+                }
+                 if(R_len>L_len){                                        // 값 비교
+                      left=i;
+                     answer=answer.concat("L");
+                 }
+                 else if(L_len>R_len){
+                    right=i;
+                     answer=answer.concat("R");
+                  }
+                 else{                                                    // 값이 같다면 어느쪽손잡이인가
+                    if(hand.equals("right")){
+                      right=i;
+                       answer=answer.concat("R");
+                      }
+                      else{
+                       left=i;
+                       answer=answer.concat("L");
+                     }
+                     
+                }
+            }
+           
+        }
+        
+        return answer;
+    }
+}
+*************************************************************************************************************
+키패드의 위치는 정해져 있다. 그리고 이 문제를 풀 때 주의점은 만약 2,3,5,0일경우 양쪽 손가락 거리를 구해야하느네
+점과 점 사이의 거리 방정식으로 풀면안된다. 왜냐하면 문제를 보면 엄지손가락은 상하좌우로만 이동가능하다 적혀있다.
