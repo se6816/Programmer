@@ -1,0 +1,29 @@
+class Solution {
+    public int[] solution(int n, int m) {
+        int small=0;
+        int big=0;
+        if(n<m){
+            for(int i=n; 0<i;i--){
+                if(n%i==0 && m%i==0) {
+                    small=i;
+                    break;
+                }
+            }
+        }
+        else if(n>m){
+            for(int i=m; 0<i;i--){
+                if(n%i==0 && m%i==0) {
+                    small=i;
+                    break;
+                }
+            }
+        }
+        else{
+            int[] answer={n,m};
+            return answer;
+        }
+        big=(n*m)/small;
+        int[] answer={small,big};
+        return answer;
+    }
+}
