@@ -1,0 +1,38 @@
+import java.util.Stack;
+class Solution {
+    Stack<Integer> sta;
+    public int pushOrCompare(int value){
+        if(!sta.empty()){
+            if(sta.peek()==value){
+                sta.pop();
+                return 2;
+            }
+        }
+        sta.push(value);
+        return 0;
+    }
+    public int solution(int[][] board, int[] moves) {
+        sta= new Stack<Integer>();
+        int answer = 0;
+        int location=0;
+        int choice_Val=0;
+        boolean isSearch=false;
+        for(int move : moves){
+            isSearch=false;
+            for(int i=0; i<board.length;i++){
+                if(board[i][move-1]!=0){
+                    isSearch=true;
+                    choice_Val=board[i][move-1];
+                    board[i][move-1]=0;   
+                    break;
+                }
+            }
+            if(!isSearch){
+                continue;
+            }
+            answer+=pushOrCompare(choice_Val);
+            
+        }
+        return answer;
+    }
+}
