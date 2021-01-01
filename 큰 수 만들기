@@ -1,0 +1,33 @@
+import java.util.*;
+class Solution {
+    public StringBuilder solution(String number, int k) {
+        StringBuilder answer = new StringBuilder();
+        String compare="";
+        int count=k;
+        int max_index;
+        int max;
+        while(true){
+            max=0;
+            max_index=0;
+            if(count+1>number.length()) return answer;
+            else{
+            compare=number.substring(0,count+1);
+           for(int i=0;i<compare.length();i++){
+               if(max<Integer.parseInt(compare.substring(i,i+1))){
+                   max_index=i;
+                   max=Integer.parseInt(compare.substring(i,i+1));
+               }
+               
+           }
+            answer=answer.append(compare.substring(max_index,max_index+1));
+            number=number.substring(max_index+1);
+            count=count-max_index;
+            if(count==0){
+                break;
+            }
+            }
+        }
+        answer=answer.append(number);
+        return answer;
+    }
+}
