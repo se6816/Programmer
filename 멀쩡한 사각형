@@ -1,0 +1,13 @@
+class Solution {
+    public static long gcd(long p, long q)  // 유클리드 호제법
+    {
+	    if (q == 0) return p;
+	    return gcd(q, p%q);
+    }
+    public long solution(int w, int h) {
+        long answer = 1;
+        long min= gcd(w,h);
+        return (long)w*h-(w+h-min);
+    }
+}
+
