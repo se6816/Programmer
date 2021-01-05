@@ -1,0 +1,40 @@
+class Solution {
+    int zero;
+    int one;
+    public void check(int[][] arr, int x, int y, int length){
+        int first= arr[x][y];
+        boolean result= false;
+        for(int i=x;i<x+length;i++){
+            for(int j=y; j<y+length;j++){
+                if(arr[i][j]!=first){
+                    check(arr,x,y,length/2);
+                    check(arr,x,y+length/2,length/2);
+                    check(arr,x+length/2,y,length/2);
+                    check(arr,x+length/2,y+length/2,length/2);
+                    result=true;
+                    break;
+                }
+            }
+            if(result){
+                break;
+            }
+        }
+        if(!result){
+            if(first==1) one++;
+            else zero++;
+        }
+    }
+    
+    
+    
+    public int[] solution(int[][] arr) {
+        zero=0;
+        one=0;
+        check(arr,0,0,arr.length);
+        int[] answer={zero,one};
+        return answer;
+    }
+}
+
+********************************************************************************************************
+쿼드 트리 이용문제
