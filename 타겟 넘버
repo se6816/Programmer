@@ -1,0 +1,18 @@
+class Solution {
+    public int dfs(int prev, int[] numbers, int target,int index){
+        if(index==numbers.length){                    // 종료 조건
+            if(prev==target) return 1;
+            else return 0;
+        }
+        int val1= prev+numbers[index];
+        int val2=prev-numbers[index];
+        
+        return dfs(val1, numbers,target,index+1)+dfs(val2, numbers, target, index+1);  
+    }
+    public int solution(int[] numbers, int target) {
+        int answer = 0;
+        int cur=0;
+        answer+=dfs(cur, numbers,target,0);
+        return answer;
+    }
+}
