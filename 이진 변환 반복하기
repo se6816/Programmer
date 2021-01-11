@@ -1,0 +1,36 @@
+class Solution {
+    public String Digit(int n){
+        StringBuilder st= new StringBuilder();
+        int value= n;
+        while(value!=0){
+            st.append(value%2);
+            value=value/2;
+        }
+        return st.toString();
+    }
+    public int[] solution(String s) {
+        int length=0;
+        int delAfterLength=0;
+        int tryCount=0;
+        int delCount=0;
+        while(true){
+            length=s.length();
+            s=s.replaceAll("0","");
+            tryCount++;
+            delAfterLength=s.length();
+            delCount+=length-delAfterLength;
+            s=Digit(delAfterLength);
+            if(s.equals("1")) break;
+        }
+        
+            
+            
+        int[] answer={tryCount,delCount};
+            
+        return answer;
+    }
+}
+***********************************************************************************************
+1. 먼저 replaceAll로 0을 전부 없앤다.
+2. 이진변환을 시킨다.
+3. 값이 1이 나올때까지 위 과정을 반복한다.
