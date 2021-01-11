@@ -1,0 +1,20 @@
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+        int index=1;
+        int count=0;
+        while(true){
+            if(index*(index+1)/2 > n) break;
+            int val=n-index*(index+1)/2;
+            if(val % index==0) count++;
+            index++;    
+        }
+        return count;
+    }
+}
+****************************************************************************************************************
+연속적인 수의 나열로 값을 정한다 하였다.
+즉 시작 숫자를 a라고 하면
+(a+1)+(a+2)+(a+3)+(a+4)------------+(a+k)까지 될 것이고
+k의 값은 더할 숫자의 개수를 의미한다. 즉 위의 index는 개수를 의미하고
+n에 더한 상수 값들을 빼고 남은숫자에 index로 나누어 떨어진다면 그 개수는 존재할 수 있다.  
