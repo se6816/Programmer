@@ -1,0 +1,20 @@
+class Solution {
+    public String solution(String s) {
+        String answer = "";
+        String[] st = s.split(" ");
+        for(int i=0; i<st.length;i++){  
+            if(st[i].trim().length()!=0){
+                answer=answer.concat(st[i].substring(0,1).toUpperCase());
+                answer=answer.concat(st[i].substring(1).toLowerCase());
+                if((i+1)!=st.length)  answer=answer.concat(" ");
+            }
+            else answer=answer.concat(" ");
+        }
+        if(answer.length()!=s.length()){
+            int re=s.length()-answer.length();
+            answer=answer.concat(" ".repeat(re));
+        }
+        
+        return answer;
+    }
+}
