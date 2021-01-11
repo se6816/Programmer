@@ -1,0 +1,28 @@
+class Solution {
+    public int Max(int a, int b){
+        int min=0;
+        int result;
+        int cal_min=0;
+        if(a>b) min=b;
+        else min=a;
+        
+        for(int i=1; i<=min;i++){
+            int cal=min/i;
+            if((a%cal==0)&&(b%cal==0)){
+                cal_min=cal;
+                break;
+            }
+        }
+        result=(a*b)/cal_min;
+        return result;
+    }
+    
+    public int solution(int[] arr) {
+        int cal=arr[0];
+        for(int i=1; i<arr.length;i++){
+            cal=Max(cal,arr[i]);
+        }
+        return cal;
+    }
+    
+}
