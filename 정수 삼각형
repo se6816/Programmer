@@ -1,0 +1,30 @@
+class Solution {
+    public int solution(int[][] triangle) { 
+        // int의 길이가 변의 길이
+        int[][] arr= new int[triangle.length][triangle.length];
+        int max = 0;
+        for(int i=0;i<triangle.length;i++){
+            for(int j=0;j<triangle[i].length;j++){
+                int x=i;
+                int y=j;
+                int one=0;
+                int two=0;
+                if(x!=0 && y!=0){
+                    one=triangle[x-1][y-1];
+                }
+                if(x!=0 && y!=triangle[i].length-1){
+                    two=triangle[x-1][y];   
+                }
+                arr[i][j]=triangle[i][j]+Math.max(one,two);
+                triangle[i][j]=arr[i][j];
+            }
+        }
+
+        for(int i=0; i<arr[arr.length-1].length;i++){
+            if(arr[arr.length-1][i]>max){
+                max=arr[arr.length-1][i];
+            }
+        }
+        return max;
+    }
+}
