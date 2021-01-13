@@ -1,0 +1,22 @@
+class Solution {
+  
+    public int solution(int m, int n, int[][] puddles) {
+        int[][] arr = new int[n+1][m+1];
+        arr[1][1]=1;
+        for(int i=0; i<puddles.length;i++){
+            arr[puddles[i][1]][puddles[i][0]]=-1;
+        }
+        for(int i=1; i<arr.length;i++){
+            for(int j=1; j<arr[0].length;j++){
+                if(arr[i][j]!=-1){
+                    int one=0;
+                    int two=0;
+                    if(arr[i-1][j]!=-1) one=arr[i-1][j];
+                    if(arr[i][j-1]!=-1) two=arr[i][j-1];
+                    arr[i][j]=(arr[i][j]+one+two) % 1000000007;
+                }
+            }
+        }
+        return arr[n][m];
+    }
+}
