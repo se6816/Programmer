@@ -1,0 +1,16 @@
+class Solution {
+        
+    public int solution(int n, int[] money) {
+        int[] count= new int[n+1];
+        count[0]=1;
+        for(int j=0; j<money.length;j++){
+            for(int i=1; i<count.length;i++){
+                if(i>=money[j]){
+                    count[i]+=count[i-money[j]]%1000000007;
+                }
+            }
+        }
+        
+        return count[n];
+    }
+}
