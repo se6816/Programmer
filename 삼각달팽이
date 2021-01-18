@@ -1,0 +1,42 @@
+class Solution {
+    public int[] solution(int n) {
+        int[] answer={};
+        int side=n;
+        int index=0;
+        int start=1;
+        int x=-1;
+        int y=0;
+        String[] arrow = {"down","cross","left"};
+        int[][] arr= new int[side][side];
+        while(side!=0){
+            if(arrow[index].equals("down")){
+                for(int i=0; i<side;i++){
+                    arr[++x][y]=start++;
+                }
+            }
+            if(arrow[index].equals("cross")){
+                for(int i=0; i<side;i++){
+                    arr[--x][++y]=start++;
+                }
+            }
+            if(arrow[index].equals("left")){
+                for(int i=0; i<side;i++){
+                    arr[x][--y]=start++;
+                }
+            }
+            if(index==2){
+                index=-1;
+            }
+            index++;
+            side--;
+        }
+        answer= new int[start-1];
+        int count=0;
+        for(int i=0; i<n;i++){
+            for(int j=0; j<=i;j++){
+                answer[count++]=arr[i-j][j];
+            }
+        }
+        return answer;
+    }
+}
