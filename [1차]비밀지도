@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+import java.util.*;
+class Solution {
+    public List<String> solution(int n, int[] arr1, int[] arr2) {
+        ArrayList<String> a1= new ArrayList<String>();
+        int[] answer = new int[n];
+        int count=0;
+        for(int i=0; i<arr1.length;i++){
+            answer[count]=arr1[count] | arr2[count];
+            count++;
+        }
+        for(int i=0; i<answer.length;i++){
+            a1.add(change(answer[i], n));
+        }
+
+        return a1.subList(0,n);
+    }
+    private String change(int arr,int n){
+        StringBuilder st= new StringBuilder();
+        int max=n;
+        while(arr!=0){
+            if(arr%2==1) st.append("#");
+            if(arr%2==0) st.append(" ");
+            arr=arr/2;
+        }
+        if(st.length()!=max){
+            int re= max-st.length();
+            st.append(" ".repeat(re));
+        }
+        
+        st.reverse();
+        return st.toString();
+
+    }
+}
