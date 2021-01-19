@@ -1,0 +1,34 @@
+import java.util.HashMap;
+import java.util.Collections;
+import java.util.*;
+class Solution {
+    public int[] solution(int N, int[] stages) {
+        int[] answer = {};
+        int[] stage= new int[N+2];
+        int applicant= stages.length;
+        HashMap<Integer,Double> hash= new HashMap<Integer,Double>();
+        for(int i=0; i<stages.length;i++){
+            stage[stages[i]]+=1;
+        }
+        for(int i=1; i<stage.length-1;i++){
+            if(stage[i]==0) hash.put(i,0.0);
+            else hash.put(i,stage[i]/(double)applicant);
+            applicant=applicant-stage[i];
+        }
+        List<Map.Entry<Integer, Double>> list = new LinkedList<>(hash.entrySet());
+        
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {
+            public int compare(Map.Entry<Integer, Double> o1, Map.Entry<Integer, Double> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        answer= new int[list.size()];
+        int count=0;
+        for(Map.Entry<Integer,Double> key : list){
+            answer[count++]=key.getKey();
+        }
+        
+        
+        return answer;
+    }
+}
