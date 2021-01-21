@@ -1,0 +1,50 @@
+class Solution {
+    public int solution(String dartResult) {
+        int sum = 0;
+        int cur_Idx=0;
+        StringBuilder value= new StringBuilder();
+        double[] score= new double[3];
+        String[] st=dartResult.split("");
+        for(int i=0; i<st.length;i++){
+            if(st[i].equals("*") || st[i].equals("#")){
+                switch(st[i]){
+                    case "*" :
+                        score[cur_Idx-1]*=2;
+                        if(cur_Idx>1)
+                            score[cur_Idx-2]*=2;
+                        
+                        break;
+                    case "#" :
+                        score[cur_Idx-1]*=-1;
+                        break;
+                    default :
+                        break;
+                }
+            }
+            else if(st[i].equals("S") || st[i].equals("D") || st[i].equals("T")){
+                switch(st[i]){
+                    case "S" :
+                        score[cur_Idx]=Integer.parseInt(value.toString());
+                        break;
+                    case "D" :
+                        score[cur_Idx]=Math.pow(Integer.parseInt(value.toString()),2);
+                        break;
+                    case "T" :
+                        score[cur_Idx]=Math.pow(Integer.parseInt(value.toString()),3);
+                        break;
+                    default :
+                        break;
+                }
+                value.delete(0,value.length());
+                cur_Idx++;
+            }
+            else{
+                value.append(st[i]);
+            }
+        }
+        for(int z=0; z<score.length;z++){
+            sum+=score[z];
+        }
+        return sum;
+    }
+}
