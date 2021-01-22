@@ -1,0 +1,47 @@
+import java.util.*;
+class Solution {
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        int count=0;
+        int pass_index=0;
+        int cur_weight=0;
+        int pass_count=0;
+        int visited_index=0;
+        int passing_index=0;
+        Queue<Integer> truck= new LinkedList<Integer>();
+        int[] visited= new int[truck_weights.length];
+        while(true){
+            if(!truck.isEmpty()){
+                int change_visited_index=visited_index;
+                for(int i=visited_index; i<passing_index;i++){
+                    if(count-visited[i]>=bridge_length){
+                        change_visited_index++;
+                        int delete_weight=truck.poll();
+                        cur_weight-=delete_weight;
+                    }
+                    else{
+                        break;
+                    }
+                }
+                visited_index=change_visited_index;
+            }
+            
+            if(pass_index!=truck_weights.length && 
+               cur_weight+truck_weights[pass_index]<=weight)
+            {
+                cur_weight+=truck_weights[pass_index];
+                truck.add(truck_weights[pass_index]);
+                pass_index++;
+                visited[passing_index++]=count;
+            }
+            
+            count++;
+            
+            
+            if(truck.isEmpty() && pass_index==truck_weights.length){
+                break;
+            }
+        }
+        
+        return count;
+    }
+}
