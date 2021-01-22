@@ -1,0 +1,43 @@
+import java.util.Arrays;
+class Solution {
+    int count=10000;
+    public boolean compare(String one, String two){
+        int cnt=0;
+        String[] st1= one.split("");
+        String[] st2= two.split("");
+        for(int i=0; i<st1.length;i++){
+            if(!st1[i].equals(st2[i])){
+                cnt++;
+            }
+        }
+        if(cnt==1){
+            return true;
+        }
+        return false;
+    }
+    public void bfs(String word,String target, int cnt, String[] words, int[] visited){
+        if(word.equals(target)){
+            if(count>cnt){
+                count=cnt;
+            }
+            return;
+        }
+        if(cnt==visited.length) return;
+        for(int i=0; i<words.length;i++){
+            if(visited[i]==0){
+                boolean result= compare(word,words[i]);
+                if(result==true){
+                    int[] visited_copy=Arrays.copyOf(visited,visited.length);
+                    visited_copy[i]=1;
+                    bfs(words[i],target,cnt+1,words,visited_copy);
+                }
+            }
+        }
+    }
+    public int solution(String begin, String target, String[] words) {
+        int[] visited= new int[words.length];
+        bfs(begin,target,0,words,visited);
+        if(count==10000) return 0;
+        return count;
+    }
+}
