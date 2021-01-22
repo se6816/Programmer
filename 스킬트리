@@ -1,0 +1,32 @@
+import java.util.HashMap;
+class Solution {
+    public int solution(String skill, String[] skill_trees) {
+        int count=0;
+        String[] st= skill.split("");
+        HashMap<String,Integer> hash= new HashMap<String, Integer>();
+        for(int i=0; i<st.length;i++){
+            hash.put(st[i],count++);
+        }
+        count=0;
+        for(int i=0;i<skill_trees.length;i++){
+            int Idx=0;
+            boolean result=true;
+            String[] word= skill_trees[i].split("");
+            for(int j=0;j<word.length;j++){
+                int value=hash.getOrDefault(word[j],-1);
+                if(value!=-1 && value==Idx){
+                    Idx++;
+                }
+                else if(value!=-1 && value!=Idx){
+                    result=false;
+                    break;
+                }
+            }
+            if(result==true){
+                count++;
+            }
+            
+        }
+        return count;
+    }
+}
