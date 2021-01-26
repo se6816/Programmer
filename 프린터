@@ -1,0 +1,69 @@
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int[] print = new int[priorities.length];
+        int max_Index=-1;
+        int max_Value=-1;
+        int start_Index=-1;
+        int count=0;
+        while(max_Index!=location){
+            count++;
+            for(int i=start_Index+1; i<priorities.length;i++){
+                if(print[i]==0 && priorities[i]>max_Value){
+                    max_Value=priorities[i];
+                    max_Index=i;
+                }
+            }
+            if(start_Index!=0){
+                for(int i=0; i<start_Index;i++){
+                if(print[i]==0 && priorities[i]>max_Value){
+                    max_Value=priorities[i];
+                    max_Index=i;
+                }
+            }
+            }
+            print[max_Index]=1;
+            max_Value=-1;
+            start_Index=max_Index;
+        }
+        return count;
+    }
+}
+
+******************************************************************************************************************************
+다른 사람 코드
+
+import java.util.*;
+
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 0;
+        int l = location;                          // 큐에서의 타겟 위치
+
+        Queue<Integer> que = new LinkedList<Integer>();
+        for(int i : priorities){
+            que.add(i);                               // 큐에 현재 배열을 넣는다.
+        }
+
+        Arrays.sort(priorities);                     // 우선순위 선정(?)
+        int size = priorities.length-1;
+
+
+
+        while(!que.isEmpty()){
+            Integer i = que.poll();
+            if(i == priorities[size - answer]){          // 제일 큰값 찾기   //찾으면 다음 큰값
+                answer++;                                                  
+                l--;                                // 큐에서 하나가 빠짐으로써 타겟의 위치가 변경됬다.
+                if(l <0)                         // l이 0보다 작다는건 l이 0이었다는 것이고 0에서 target숫자가 빠져나간 것이므로 더이상의 연산은 필요없다.
+                    break;
+            }else{
+                que.add(i);                          // 빠질 차례가 아닌 숫자므로 다시 넣어준다.
+                l--;                             // 큐에서 하나가 빠짐으로써 타겟의 위치가 변경됬다.
+                if(l<0)                        // 타겟 숫자가 맨 뒤로 빠진 상태이다.
+                    l=que.size()-1;
+            }
+        }
+
+        return answer;
+    }
+}
