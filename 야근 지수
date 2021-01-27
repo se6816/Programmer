@@ -1,0 +1,29 @@
+import java.util.Arrays;
+class Solution {
+    public long solution(int n, int[] works) {
+        long answer = 0;
+        Arrays.sort(works);
+        int delete_Idx=works.length-1;
+        int max_value=works[works.length-1];
+        while(n!=0){
+            if(delete_Idx<0){
+                if(works[works.length-1]==0) return 0;
+                delete_Idx=works.length-1;
+                continue;
+            }
+            if(max_value==works[delete_Idx]){
+                works[delete_Idx]=works[delete_Idx]-1;
+                delete_Idx--;
+                n--;
+            }
+            else{
+                delete_Idx=works.length-1;
+                max_value=works[works.length-1];
+            } 
+        }
+        for(int i=0; i<works.length;i++){
+            answer+=(int)Math.pow(works[i],2);
+       }
+        return answer;
+    }
+}
