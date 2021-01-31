@@ -1,0 +1,29 @@
+import java.util.*;
+class Solution {
+    public long solution(int n, int[] times) {
+        Arrays.sort(times);
+        long left=0;
+        long right=(long)times[times.length-1]*(long)n;
+        long mid=(right+left)/2;
+        while(left<right){
+            mid=(right+left)/2;
+            long result=complete(mid,times);
+            if(result>=n){
+                right=mid;
+            }
+            else if(result<n){
+                left=mid+1;
+            }
+        }
+        return left;
+
+    }
+    public long complete(long mid, int[] times){
+        long result=0;                     // 처리 인원
+        for(int i=0; i<times.length;i++){
+            result+=mid/times[i];           // 처리될 인원 계산
+        }
+        return result;
+    }
+    
+}
