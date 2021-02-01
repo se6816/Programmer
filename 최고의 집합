@@ -1,0 +1,19 @@
+class Solution {
+    public int[] solution(int n, int s) {
+        int[] answer={};
+        if(n>s){
+            answer=new int[1];
+            answer[0]=-1;
+            return answer;
+        } 
+        int mid= s/n;
+        int not_trash=n-s%n;
+        answer = new int[n];
+        for(int i=0; i<answer.length;i++){
+            answer[i]=mid;
+            if(not_trash>0) not_trash--;
+            else answer[i]+=1;
+        }
+        return answer;
+    }
+}
