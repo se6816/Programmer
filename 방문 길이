@@ -1,0 +1,43 @@
+class Solution {
+    public int solution(String dirs) {
+        int answer = 0;
+        int[][] visited= new int[21][21];
+        int x=10;
+        int y=10;
+        String[] pass=dirs.split("");
+        for(int i=0; i<pass.length;i++){
+            int tx=x;
+            int px=x;
+            int ty=y;
+            int py=y;
+            switch(pass[i]){
+                case "U":
+                    ty=ty-2;
+                    py=py-1;
+                    break;
+                case "L":
+                    tx=tx-2;
+                    px=px-1;
+                    break;
+                case "R":
+                    tx=tx+2;
+                    px=px+1;
+                    break;
+                default:
+                    ty=ty+2;
+                    py=py+1;
+                    break;
+            }
+            if(tx<0 || tx>20 || ty<0 || ty>20){
+                continue;
+            }
+            x=tx;
+            y=ty;
+            if(visited[px][py]==0){
+                visited[px][py]=1;
+                answer++;
+            }
+        }
+        return answer;
+    }
+}
