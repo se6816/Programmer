@@ -1,0 +1,21 @@
+class Solution {
+    public int digit(int n){
+        int result=0;
+        int value= n;
+        while(value!=0){
+            if(value%2==1) result++;
+            value=value/2;
+        }
+        return result;
+    }
+    public int solution(int n) {
+        int one_amount=digit(n);
+        int value=n;
+        while(true){
+            value++;
+            int compare_amount=digit(value);
+            if(one_amount==compare_amount) break;
+        }
+        return value;
+    }
+}
