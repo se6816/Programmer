@@ -1,0 +1,29 @@
+import java.util.*;
+class Solution
+{
+    public int solution(String s)
+    {
+        Stack<Character> sta= new Stack<Character>();
+        int index=0;
+        while(s.length()!=index){
+            sta.push(s.charAt(index));
+            if(sta.size()>1){
+                Character cha=sta.pop();
+                if(cha==sta.peek()){
+                    sta.pop();
+                }
+                else{
+                    sta.push(cha);
+                }
+            }
+            
+            index++;
+        }
+        if(sta.empty()) return 1;
+        
+        return 0;
+    }
+}
+
+
+
