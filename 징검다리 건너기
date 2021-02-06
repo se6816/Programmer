@@ -1,0 +1,38 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] stones, int k) {
+        if(stones.length==1){
+            return stones[0];
+        }
+        int answer = 0;
+        int left=200000000;
+        int right=0;
+        for(int i=0; i<stones.length;i++){
+            if(right<stones[i]){
+                right=stones[i];
+            }
+            if(left>stones[i]){
+                left=stones[i];
+            }
+        }
+        while(left<right){
+            int mid=(right+left)/2;
+            int count=0;
+            for(int j=0; j<stones.length;j++){
+                if(count==k) break;
+                if(stones[j]-mid<1) count++;
+                else count=0; 
+            }
+            if(count>=k){
+                right=mid;
+            }
+            else{
+                left=mid+1;
+            }
+            answer=left;
+        }
+        
+        return answer;
+        
+    }
+}
