@@ -1,0 +1,39 @@
+import java.util.*;
+class Solution {
+    public int[] solution(String[] genres, int[] plays) {
+        int length=0;
+        int[] answer={};
+        HashMap<String, Integer> hash= new HashMap<String, Integer>();
+        HashMap<String, HashSet<Integer>> index_Save= new HashMap<String, HashSet<Integer>>();
+        
+        for(int i=0; i<genres.length;i++){
+            hash.put(genres[i], hash.getOrDefault(genres[i],0)+plays[i]);
+            HashSet<Integer> set=index_Save.getOrDefault(genres[i],new HashSet<Integer>());
+            if(set.size()<=1){
+                length++;
+            }
+            set.add(i);
+            index_Save.put(genres[i],set);
+        }
+        
+        List<String> List = new ArrayList<>(hash.keySet());
+		Collections.sort(List, (o1, o2) -> (hash.get(o2).compareTo(hash.get(o1))));
+        
+
+     
+        
+        answer= new int[length];
+        int count=0;
+        for(String st : List){
+            HashSet<Integer> set= index_Save.get(st);
+           List<Integer> index= new ArrayList<>(set);
+            Collections.sort(index, (o1, o2) -> (plays[o2]-plays[o1]));
+           
+            for(int i=0;i<Math.min(2,index.size());i++){
+                answer[count++]=index.get(i);
+            }
+        }
+       
+        return answer;
+    }
+}
