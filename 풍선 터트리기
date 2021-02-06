@@ -1,0 +1,37 @@
+import java.util.Arrays;
+class Solution {
+    public int solution(int[] a) {
+        if(a.length<3){
+            return a.length;
+        }
+        int answer = 2;
+        int[] left_Min=new int[a.length];
+        int[] right_Min=new int[a.length];
+        int count=0;
+        left_Min[1]=a[0];
+        for(int i=2; i<a.length-1;i++){
+            if(left_Min[i-1]>a[i-1]){
+                left_Min[i]=a[i-1];
+            }
+            else{
+                left_Min[i]=left_Min[i-1];
+            }
+        }
+        right_Min[a.length-2]=a[a.length-1];
+        for(int i=a.length-3; i>0;i--){
+            if(right_Min[i+1]>a[i+1]){
+                right_Min[i]=a[i+1];
+            }
+            else{
+                right_Min[i]=right_Min[i+1];
+            }
+        }
+        for(int i=1; i<a.length-1;i++){
+            int max=Math.max(left_Min[i],right_Min[i]);
+            if(a[i]<max){
+                answer++;
+            }
+        }
+        return answer;
+    }
+}
