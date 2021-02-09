@@ -1,0 +1,45 @@
+import java.util.*;
+class Solution {
+    int[] distance;
+    int[] visited;
+    int count;
+    public void search_distance(List<Integer> list, int[][] edge){
+        List<Integer> next_list= new ArrayList<>();
+        for(int cur_Vtx : list){
+         for(int i=0;i<edge.length;i++){
+                if(edge[i][0]==cur_Vtx && visited[edge[i][1]-1]==0){
+                    visited[edge[i][1]-1]=1;
+                    distance[edge[i][1]-1]=distance[cur_Vtx-1]+1;
+                    next_list.add(edge[i][1]);
+               }
+               if(edge[i][1]==cur_Vtx && visited[edge[i][0]-1]==0){
+                   visited[edge[i][0]-1]=1;
+                   distance[edge[i][0]-1]=distance[cur_Vtx-1]+1;  
+                   next_list.add(edge[i][0]);
+               }
+        }
+        }
+        if(next_list.size()<=0) return;
+        search_distance(next_list, edge);
+        
+    }
+    public int solution(int n, int[][] edge) {
+        visited=new int[n];
+        distance= new int[n];
+        visited[0]=1;
+        distance[0]=0;
+        List<Integer> list= new ArrayList<>();
+        list.add(1);
+        search_distance(list,edge);
+        int count=1;
+        int max=0;
+        for(int i=0;i<distance.length;i++){
+            if(max==distance[i]) count++;
+            if(max<distance[i]){
+                max=distance[i];
+                count=1;
+            }
+        }
+        return count;
+    }
+}
