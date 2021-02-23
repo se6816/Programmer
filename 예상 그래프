@@ -1,0 +1,17 @@
+class Solution
+{
+    public int solution(int n, int a, int b)
+    {
+        int answer = 0;
+        while(true){
+            answer++;
+            int win_A=(int)Math.ceil((double)a/2);
+            int win_B=(int)Math.ceil((double)b/2);
+            a=win_A;
+            b=win_B;
+            if(a==b) break;
+        }
+
+        return answer;
+    }
+}
