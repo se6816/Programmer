@@ -1,0 +1,28 @@
+import java.util.*;
+class Solution {
+    public int[] solution(int n, String[] words) {
+        int count=0;
+        int[] answer = new int[2];
+        HashSet<String> set= new HashSet<String>();
+        String preword="";
+        while(count<words.length){
+            if(set.contains(words[count])){
+                break;
+            }
+            if(count>=1 && !preword.substring(preword.length()-1,preword.length()).equals(words[count].substring(0,1))){
+                break;
+            }
+            set.add(words[count]);
+            preword=words[count];
+            count++;
+        }
+        if(count==words.length){
+            answer[0]=0;
+            answer[1]=0;
+            return answer;
+        }
+        answer[0]=count%n+1;
+        answer[1]=(int)Math.ceil((double)(count+1)/n);
+        return answer;
+    }
+}
