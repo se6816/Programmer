@@ -1,0 +1,194 @@
+정
+import java.util.*;
+class Solution {
+    public int[] solution(String[] gems) {
+        HashSet<String> set= new HashSet<>();
+        HashMap<String,Integer> hash= new HashMap<>();
+        int section_count=gems.length;
+        int jewel_count=0;
+        int cur_size=0;
+        int start_Idx=0;
+        int end_Idx=0;
+        int[] section=new int[2];
+        section[0]=1;
+        section[1]=gems.length;
+         for(String st  : gems){   // 보석 개수 구하기 
+            set.add(st);
+        }
+        jewel_count=set.size();    // 총 보석의 종류 수
+        for(int i=0; i<gems.length;i++){
+            hash.put(gems[i],hash.getOrDefault(gems[i],0)+1);
+            
+            if(cur_size==hash.size()){
+                while(true){
+                    if(hash.get(gems[start_Idx])<2){
+                        break;
+                    }
+                    hash.put(gems[start_Idx],hash.get(gems[start_Idx])-1);
+                    start_Idx++;
+                    
+                }
+            }
+            if(jewel_count==hash.size()){   
+                end_Idx=i;
+                if(section_count>end_Idx-start_Idx+1){
+                    section_count=end_Idx-start_Idx+1;
+                    section[0]=start_Idx+1;
+                    section[1]=end_Idx+1;
+                }
+            }
+            cur_size=hash.size();
+        }
+        
+    
+        return section;
+    }
+}
+
+*************************************************************************************************************************************
+오답
+import java.util.*;
+class Solution {
+    int jewel_count;
+    int[] section;
+    public void searchSection(HashMap<String,Integer> hash,String[] gems, int start_Idx,int end_Idx){
+        boolean isStop=true;
+        if(hash.get(gems[start_Idx])>1){
+            isStop=false;
+            HashMap<String,Integer> copy_hash= new HashMap<>(hash);
+            copy_hash.put(gems[start_Idx],copy_hash.get(gems[start_Idx])-1);
+            searchSection(copy_hash,gems,start_Idx+1,end_Idx);
+        }
+        if(hash.get(gems[end_Idx])>1){
+            isStop=false;
+            HashMap<String,Integer> copy_hash= new HashMap<>(hash);
+            copy_hash.put(gems[end_Idx],copy_hash.get(gems[end_Idx])-1);
+            searchSection(copy_hash,gems,start_Idx,end_Idx-1);
+        }
+        if(isStop && end_Idx-start_Idx+1==jewel_count
+           && section[0]>start_Idx+1){
+            section[0]=start_Idx+1;
+            section[1]=end_Idx+1;
+        }
+        if(isStop && end_Idx-start_Idx+1<jewel_count){
+            section[0]=start_Idx+1;
+            section[1]=end_Idx+1;
+        }
+        jewel_count=Math.min(jewel_count,end_Idx-start_Idx+1);
+        
+        return;
+    }
+    public int[] solution(String[] gems) {
+        HashMap<String,Integer> hash= new HashMap<>();
+        jewel_count=gems.length;
+        section=new int[2];
+        section[0]=1;
+        section[1]=gems.length;
+        for(String st  : gems){
+            hash.put(st,hash.getOrDefault(st,0)+1);
+        }
+    
+        searchSection(hash,gems,0,gems.length-1);
+        return section;
+    }
+}
+
+계산은 올바르게 되나 주어진 크기가 너무 커서 재귀를 사용하기엔 부적합했다.
+***********************************************************************************************************************************
+오답 2
+import java.util.*;
+class Solution {
+    public int[] solution(String[] gems) {
+        HashSet<String> set= new HashSet<>();
+        HashMap<String,Integer> hash= new HashMap<>();
+        int jewel_count=0;
+        int cur_size=0;
+        int start_Idx=0;;
+        int end_Idx=0;;
+        int[] section=new int[2];
+         for(String st  : gems){   // 보석 개수 구하기 
+            set.add(st);
+        }
+        jewel_count=set.size();    // 총 보석의 수
+        for(int i=0; i<gems.length;i++){
+            hash.put(gems[i],hash.getOrDefault(gems[i],0)+1);
+            if(jewel_count==hash.size()){    // 모든 보석을 찾음
+                end_Idx=i;
+                break;
+            }
+            if(cur_size==hash.size()){
+                while(true){
+                    if(hash.get(gems[start_Idx])<2){
+                        break;
+                    }
+                    hash.put(gems[start_Idx],hash.get(gems[start_Idx])-1);
+                    start_Idx++;
+                    
+                }
+            }
+            cur_size=hash.size();
+        }
+        section[0]=start_Idx+1;
+        section[1]=end_Idx+1;
+    
+        return section;
+    }
+}
+
+오답의 이유는 보석을 구입하는 구간의 최소 길이를 고려하지 못했다.
+*****************************************************************************************************************************
+오답 3
+import java.util.*;
+class Solution {
+    public int[] solution(String[] gems) {
+        HashSet<String> set= new HashSet<>();
+        HashMap<String,Integer> hash= new HashMap<>();
+        int section_count=gems.length;
+        int jewel_count=0;
+        int cur_size=0;
+        int start_Idx=0;
+        int end_Idx=0;
+        int[] section=new int[2];
+        section[0]=1;
+        section[1]=gems.length;
+         for(String st  : gems){   // 보석 개수 구하기 
+            set.add(st);
+        }
+        jewel_count=set.size();    // 총 보석의 종류 수
+        for(int i=0; i<gems.length;i++){
+            hash.put(gems[i],hash.getOrDefault(gems[i],0)+1);
+            if(jewel_count==hash.size()){   
+                end_Idx=i;
+                if(section_count>end_Idx-start_Idx+1){
+                    section_count=end_Idx-start_Idx+1;
+                    section[0]=start_Idx+1;
+                    section[1]=end_Idx+1;
+                }
+            }
+            
+            if(cur_size==hash.size()){
+                while(true){
+                    if(hash.get(gems[start_Idx])<2){
+                        break;
+                    }
+                    hash.put(gems[start_Idx],hash.get(gems[start_Idx])-1);
+                    start_Idx++;
+                    
+                }
+            }
+            
+            cur_size=hash.size();
+        }
+        
+    
+        return section;
+    }
+}
+
+for문 안에 if문의 순서가 잘못되었다.
+구간 측정을 보석을 사지 않을 구간 제거보다 먼저 해버리면 마지막 인덱스 도달 시에 구간을 제거해도 for문이 끝나버리므로 구간 측정이 안된다. 
+*********************************************************************************************************************************
+
+
+
+
