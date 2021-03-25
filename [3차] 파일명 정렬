@@ -1,0 +1,71 @@
+import java.util.*;
+class Solution {
+    public class Node implements Comparable<Node>{
+        String HEAD;
+        String Files;
+        String number;
+        int order;
+        Node(String HEAD, String number, String Files,int order){
+            this.HEAD=HEAD;
+            this.number= number;
+            this.Files=Files;
+            this.order=order;
+        }
+        @Override
+        public int compareTo(Node node){
+            if(!this.HEAD.equalsIgnoreCase(node.HEAD)){
+                return this.HEAD.compareToIgnoreCase(node.HEAD);
+            }
+            
+            if(Integer.parseInt(this.number)!=Integer.parseInt(node.number)){
+                
+                return Integer.compare(Integer.parseInt(this.number),Integer.parseInt(node.number));
+            }
+            return this.order-node.order;
+        }
+    } 
+    public Object[] solution(String[] files) {
+        String[] answer = {};
+        PriorityQueue<Node> que= new PriorityQueue<>();
+        int count=0;
+        for(String st : files){
+            StringBuilder HEAD=new StringBuilder("");
+            StringBuilder number=new StringBuilder("");
+            int Idx=0;
+            for(int i=Idx; i<st.length();i++){
+                char ch=st.charAt(i);
+                if(ch<=47 || ch >=58){
+                    HEAD.append(ch);
+                }
+                else{
+                    Idx=i;
+                    break;
+                }
+                if(i+1==st.length()){
+                    Idx=i;
+                }
+            }
+            for(int i=Idx; i<st.length();i++){
+                char ch=st.charAt(i);
+                if(ch>47 && ch<58){
+                    number.append(ch);
+                }
+                else{
+                    Idx=i;
+                    break;
+                }
+                if(i+1==st.length()){
+                    Idx=i;
+                }
+            }
+            que.add(new Node(HEAD.toString(),number.toString(),st,count++));
+        }
+        String[] arr= new String[files.length];
+        count=0;
+        while(!que.isEmpty()){
+            arr[count]=que.poll().Files;
+            count++;
+        }
+        return arr;
+    }
+}
