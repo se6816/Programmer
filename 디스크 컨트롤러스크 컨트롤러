@@ -1,0 +1,54 @@
+import java.util.*;
+class Solution {
+    public class Node implements Comparable<Node>{
+        int start_Time; 
+        int work_Time; 
+        Node(int start_Time, int work_Time) { 
+            this.start_Time = start_Time; 
+            this.work_Time = work_Time; 
+        } 
+        @Override 
+        public int compareTo(Node node) {
+            return Integer.compare(this.work_Time, node.work_Time); 
+        } 
+    }
+    public int solution(int[][] jobs) {
+        PriorityQueue<Node> queue= new PriorityQueue<Node>();
+        int times=0;
+        int sum=0;
+        int i=0;
+        Arrays.sort(jobs, (o1, o2) -> o1[0] - o2[0]);
+        while(true){
+            while(i<jobs.length){
+                if(jobs[i][0]<=times){
+                    queue.offer(new Node(jobs[i][0],jobs[i][1]));
+                    i++;
+                }
+                else{
+                    break;
+                }
+            }
+            if(!queue.isEmpty()){
+                Node node= queue.poll();
+                times+=node.work_Time;
+                sum+=times-node.start_Time;
+                
+            }
+            else{
+                times++;
+            }
+            if(i>=jobs.length)
+                break;
+        }
+        while(!queue.isEmpty()){
+            Node node= queue.poll();
+            times+=node.work_Time;
+            sum+=times-node.start_Time;
+                
+        }
+
+       
+    
+        return sum/jobs.length;
+    }
+}
