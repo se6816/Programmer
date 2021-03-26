@@ -1,0 +1,39 @@
+import java.util.*;
+class Solution {
+    public Object[] solution(String msg) {
+        ArrayList<Integer> list= new ArrayList<>();
+        HashMap<String,Integer> hash= new HashMap<>();
+        int index=27;
+        hash.put("A",1); hash.put("B",2);hash.put("C",3);
+        hash.put("D",4); hash.put("E",5);hash.put("F",6);
+        hash.put("G",7);hash.put("H",8); hash.put("I",9);
+        hash.put("J",10);hash.put("K",11);hash.put("L",12);
+        hash.put("M",13);hash.put("N",14);hash.put("O",15);
+        hash.put("P",16); hash.put("Q",17);hash.put("R",18);
+        hash.put("S",19);hash.put("T",20);hash.put("U",21);
+        hash.put("V",22);hash.put("W",23);hash.put("X",24);
+        hash.put("Y",25);hash.put("Z",26);
+        int[] answer = {};
+        int count=0;
+        while(count<msg.length()){
+            StringBuilder st= new StringBuilder();
+            String term="";
+            while(count<msg.length()){
+                st.append(msg.charAt(count));
+                if(hash.containsKey(st.toString())){
+                   count++;
+                   term=st.toString();
+                }    
+                else{
+                    break;
+                }
+            }          
+            list.add(hash.get(term));
+            hash.put(st.toString(),index++);
+
+            
+        }
+        
+        return list.toArray();
+    }
+}
