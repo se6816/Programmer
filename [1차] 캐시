@@ -1,0 +1,37 @@
+import java.util.*;
+class Solution {
+
+    public int solution(int cacheSize, String[] cities) {
+        int times = 0;
+        HashMap<String,Integer> hash= new HashMap<>();
+        if(cacheSize==0){
+            return cities.length*5;
+        }
+        for(int i=0; i<cities.length;i++){
+            if(hash.containsKey(cities[i].toUpperCase())){ // 캐시에 있음
+                hash.put(cities[i].toUpperCase(),times);
+                times+=1;
+            }
+            else if(!hash.containsKey(cities[i].toUpperCase())
+                   && hash.size()==cacheSize){ 
+                int min=Integer.MAX_VALUE;
+                String key="";
+                for(Map.Entry<String,Integer> entry : hash.entrySet()){
+                    if(min>entry.getValue()){
+                        min=entry.getValue();
+                        key= entry.getKey().toUpperCase();
+                    }
+                }
+                hash.remove(key);
+                hash.put(cities[i].toUpperCase(),times);
+                times+=5;
+            }
+            else{
+                hash.put(cities[i].toUpperCase(),times);
+                times+=5;
+            }
+        
+        }
+        return times;
+    }
+}
