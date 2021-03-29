@@ -1,0 +1,71 @@
+import java.util.*;
+class Solution {
+    boolean[][] visited;
+    public class Node{
+        int x;
+        int y;
+        Node(int x, int y){
+            this.x=x;
+            this.y=y;
+        }
+    }
+    public boolean isPossible(Node node, int x, int y, int[][] maps){
+        int temp_x=node.x+x;
+        int temp_y=node.y+y;
+        if(temp_x<0 || temp_x>maps.length-1) return false;
+        if(temp_y<0 || temp_y>maps[0].length-1) return false;
+        if(maps[temp_x][temp_y]==0)
+            return false;
+        if(visited[temp_x][temp_y]==true){
+            return false;
+        }
+        return true;
+    }
+    public int solution(int[][] maps) {
+        visited=new boolean[maps.length][maps[0].length];
+        Queue<Node> que= new LinkedList<>();
+        que.offer(new Node(0,0));
+        visited[0][0]=true;
+        while(!que.isEmpty()){
+            boolean isPossi=false;
+            Node node= que.poll();
+            isPossi=isPossible(node,-1,0,maps);
+            if(isPossi){
+                int sub_x=node.x-1;
+                int sub_y=node.y;
+                maps[sub_x][sub_y]=maps[node.x][node.y]+1;
+                visited[sub_x][sub_y]=true;
+                que.offer(new Node(sub_x,sub_y));
+                
+            }
+            isPossi=isPossible(node,0,-1,maps);
+            if(isPossi){
+                int sub_x=node.x;
+                int sub_y=node.y-1;
+                maps[sub_x][sub_y]=maps[node.x][node.y]+1;
+                visited[sub_x][sub_y]=true;
+                que.offer(new Node(sub_x,sub_y));
+            }
+            isPossi=isPossible(node,0,1,maps);
+            if(isPossi){
+                int sub_x=node.x;
+                int sub_y=node.y+1;
+                maps[sub_x][sub_y]=maps[node.x][node.y]+1;
+                visited[sub_x][sub_y]=true;
+                que.offer(new Node(sub_x,sub_y));
+            }
+            isPossi=isPossible(node,1,0,maps);
+            if(isPossi){
+                int sub_x=node.x+1;
+                int sub_y=node.y;
+                maps[sub_x][sub_y]=maps[node.x][node.y]+1;
+                visited[sub_x][sub_y]=true;
+                que.offer(new Node(sub_x,sub_y));
+            }
+        }
+        if(maps[maps.length-1][maps[0].length-1]!=1)
+            return maps[maps.length-1][maps[0].length-1];
+        
+        return -1;
+    }
+}
