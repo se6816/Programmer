@@ -1,0 +1,43 @@
+import java.util.*;
+class Solution {
+    public int solution(String str1, String str2) {
+        HashMap<String,Integer> hash1= new HashMap<>();
+        HashMap<String,Integer> hash2= new HashMap<>();
+        int count = 0;
+        int total=0;
+        str1=str1.toLowerCase();
+        str2=str2.toLowerCase();
+        for(int i=0; i<str1.length()-1;i++){
+            if(str1.charAt(i)<96 || str1.charAt(i)>123){
+                continue;
+            }
+            if(str1.charAt(i+1)<96 || str1.charAt(i+1)>123){
+                i++;
+                continue;
+            }
+            String term=str1.substring(i,i+2);
+            hash1.put(term,hash1.getOrDefault(term,0)+1);
+            total++;
+        }
+        for(int i=0; i<str2.length()-1;i++){
+            if(str2.charAt(i)<96 || str2.charAt(i)>123){
+                continue;
+            }
+            if(str2.charAt(i+1)<96 || str2.charAt(i+1)>123){
+                i++;
+                continue;
+            }
+            String term=str2.substring(i,i+2);
+            hash2.put(term,hash2.getOrDefault(term,0)+1);
+            total++;
+        }
+        for(String key : hash2.keySet()){
+            if(hash1.containsKey(key)){
+                count+=Math.min(hash1.get(key),hash2.get(key));
+            }
+        }
+        total-=count;
+        if(total==0) return 65536;
+        return (int)(((double)count/total)*65536);
+    }
+}
